@@ -1,0 +1,122 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	flex-direction: column;
+	background-color: #f8f8f8;
+	margin: 0;
+}
+
+*{
+	font-family: sans-serif;
+	box-sizing: border-box;
+}
+
+form {
+	width: 50%;
+	height: 90%;
+	border: 2px solid #332097;
+	padding: 30px;
+	background: #f1f1f1;
+	border-radius: 15px;
+	padding-top: 5px;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+input {
+	display: block;
+	border: 2px solid #ccc;
+	width: 95%;
+	padding: 10px;
+	margin: 5px;
+	border-radius: 5px;
+}
+label {
+	color: #332097;
+	font-size: 18px;
+	padding: 10px;
+	margin-left: 1%;
+}
+
+button {
+	float: right;
+	background: #332097;
+	padding: 10px 15px;
+	color: #fff;
+	border-radius: 5px;
+	margin-right: 10px;
+	border: none;
+}
+button:hover{
+	opacity: .7;
+}
+
+.error {
+   background: #F2DEDE;
+   color: #A94442;
+   padding: 6px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 15px;
+   text-align: center;
+}
+
+h1 {
+	text-align: center;
+	color: #fff;
+}
+
+.ca {
+	font-size: 14px;
+	display: inline-block;
+	padding: 10px;
+	text-decoration: none;
+	color: #444;
+	margin-left: 1%;
+}
+.ca:hover {
+	text-decoration: underline;
+} 
+
+.butoane{
+	margin-top: 15px;
+}
+
+.inapoi{
+	margin: 0;
+  	margin-right: 30%;
+  	background-color: #b91f1f;
+  	width: 15%;
+}
+
+.adauga{
+ 	margin: 0;
+ 	margin-left: 30%;
+ 	margin-right: 20px;
+}
+
+.noErr{
+	padding: 6px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 15px;
+   text-align: center;
+   opacity: 0;
+}
+
+.rand input[type="file"], .rand text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.rand text{
+	color: #332097;
+	font-size: 16px;
+	font-weight: bold;
+}
