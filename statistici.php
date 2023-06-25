@@ -13,10 +13,10 @@ if(isset($_POST['an'])){
   else{
     unset($_SESSION['noAnSel']);
     $_SESSION['an'] = $_POST['anSel'];
-    $conectie = mysqli_connect("localhost", "root", "", "dashboard_db");
+    $conexiune = mysqli_connect("localhost", "root", "", "dashboard_db");
     $an = $_POST['anSel'];
     $sqll = "SELECT * FROM model";
-    $resulttt = mysqli_query($conectie, $sqll);
+    $resulttt = mysqli_query($conexiune, $sqll);
     $n = 0;
     while($row = mysqli_fetch_assoc($resulttt)){
       $metriModel[$n] = 0;
@@ -24,14 +24,15 @@ if(isset($_POST['an'])){
       $IDmodel[$n] = $row['id'];
       $n = $n + 1;
     }
+    $uid = $_SESSION['uid'];
     if($an === "totiAnii"){
-      $sql = "SELECT * FROM comenzi";
+      $sql = "SELECT * FROM comenzi WHERE idUtilizator=$uid";
     }
     else{
-      $sql = "SELECT * FROM comenzi WHERE YEAR(dataLimita) = $an";
+      $sql = "SELECT * FROM comenzi WHERE YEAR(dataLimita) = $an AND idUtilizator=$uid";
     }
     
-    $resultt = mysqli_query($conectie, $sql);
+    $resultt = mysqli_query($conexiune, $sql);
     $data = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     $price = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     $montDa = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -48,11 +49,7 @@ if(isset($_POST['an'])){
           }
           $r = $r + 1;
         }
-        $month = date("m", strtotime($row['dataLimita']));
-        if($month === '01'){
-          $data[0] = $data[0] + $row['numarMetri'];
-          $price[0] = $price[0] + $row['pret'];
-          if($row['montare']){
+        if($row['montare']){
             $montDa[0] = $montDa[0] + 1;
           }
           else{
@@ -64,182 +61,54 @@ if(isset($_POST['an'])){
           else{
             $transNu[0] = $transNu[0] + 1;
           }
+        $month = date("m", strtotime($row['dataLimita']));
+        if($month === '01'){
+          $data[0] = $data[0] + $row['numarMetri'];
+          $price[0] = $price[0] + $row['pret'];
         }
         if($month === '02'){
           $data[1] = $data[1] + $row['numarMetri'];
           $price[1] = $price[1] + $row['pret'];
-          if($row['montare']){
-            $montDa[1] = $montDa[1] + 1;
-          }
-          else{
-            $montNu[1] = $montNu[1] + 1;
-          }
-          if($row['transport']){
-            $transDa[1] = $transDa[1] + 1;
-          }
-          else{
-            $transNu[1] = $transNu[1] + 1;
-          }
         }
         if($month === '03'){
           $data[2] = $data[2] + $row['numarMetri'];
           $price[2] = $price[2] + $row['pret'];
-          if($row['montare']){
-            $montDa[2] = $montDa[2] + 1;
-          }
-          else{
-            $montNu[2] = $montNu[2] + 1;
-          }
-          if($row['transport']){
-            $transDa[2] = $transDa[2] + 1;
-          }
-          else{
-            $transNu[2] = $transNu[2] + 1;
-          }
         }
         if($month === '04'){
           $data[3] = $data[3] + $row['numarMetri'];
           $price[3] = $price[3] + $row['pret'];
-          if($row['montare']){
-            $montDa[3] = $montDa[3] + 1;
-          }
-          else{
-            $montNu[3] = $montNu[3] + 1;
-          }
-          if($row['transport']){
-            $transDa[3] = $transDa[3] + 1;
-          }
-          else{
-            $transNu[3] = $transNu[3] + 1;
-          }
         }
         if($month === '05'){
           $data[4] = $data[4] + $row['numarMetri'];
           $price[4] = $price[4] + $row['pret'];
-          if($row['montare']){
-            $montDa[4] = $montDa[4] + 1;
-          }
-          else{
-            $montNu[4] = $montNu[4] + 1;
-          }
-          if($row['transport']){
-            $transDa[4] = $transDa[4] + 1;
-          }
-          else{
-            $transNu[4] = $transNu[4] + 1;
-          }
         }
         if($month === '06'){
           $data[5] = $data[5] + $row['numarMetri'];
           $price[5] = $price[5] + $row['pret'];
-          if($row['montare']){
-            $montDa[5] = $montDa[5] + 1;
-          }
-          else{
-            $montNu[5] = $montNu[5] + 1;
-          }
-          if($row['transport']){
-            $transDa[5] = $transDa[5] + 1;
-          }
-          else{
-            $transNu[5] = $transNu[5] + 1;
-          }
         }
         if($month === '07'){
           $data[6] = $data[6] + $row['numarMetri'];
           $price[6] = $price[6] + $row['pret'];
-          if($row['montare']){
-            $montDa[6] = $montDa[6] + 1;
-          }
-          else{
-            $montNu[6] = $montNu[6] + 1;
-          }
-          if($row['transport']){
-            $transDa[6] = $transDa[6] + 1;
-          }
-          else{
-            $transNu[6] = $transNu[6] + 1;
-          }
         }
         if($month === '08'){
           $data[7] = $data[7] + $row['numarMetri'];
           $price[7] = $price[7] + $row['pret'];
-          if($row['montare']){
-            $montDa[7] = $montDa[7] + 1;
-          }
-          else{
-            $montNu[7] = $montNu[7] + 1;
-          }
-          if($row['transport']){
-            $transDa[7] = $transDa[7] + 1;
-          }
-          else{
-            $transNu[7] = $transNu[7] + 1;
-          }
         }
         if($month === '09'){
           $data[8] = $data[8] + $row['numarMetri'];
           $price[8] = $price[8] + $row['pret'];
-          if($row['montare']){
-            $montDa[8] = $montDa[8] + 1;
-          }
-          else{
-            $montNu[8] = $montNu[8] + 1;
-          }
-          if($row['transport']){
-            $transDa[8] = $transDa[8] + 1;
-          }
-          else{
-            $transNu[8] = $transNu[8] + 1;
-          }
         }
         if($month === '10'){
           $data[9] = $data[9] + $row['numarMetri'];
           $price[9] = $price[9] + $row['pret'];
-          if($row['montare']){
-            $montDa[9] = $montDa[9] + 1;
-          }
-          else{
-            $montNu[9] = $montNu[9] + 1;
-          }
-          if($row['transport']){
-            $transDa[9] = $transDa[9] + 1;
-          }
-          else{
-            $transNu[9] = $transNu[9] + 1;
-          }
         }
         if($month === '11'){
           $data[10] = $data[10] + $row['numarMetri'];
           $price[10] = $price[10] + $row['pret'];
-          if($row['montare']){
-            $montDa[10] = $montDa[10] + 1;
-          }
-          else{
-            $montNu[10] = $montNu[10] + 1;
-          }
-          if($row['transport']){
-            $transDa[10] = $transDa[10] + 1;
-          }
-          else{
-            $transNu[10] = $transNu[10] + 1;
-          }
         }
         if($month === '12'){
           $data[11] = $data[11] + $row['numarMetri'];
           $price[11] = $price[11] + $row['pret'];
-          if($row['montare']){
-            $montDa[11] = $montDa[11] + 1;
-          }
-          else{
-            $montNu[11] = $montNu[11] + 1;
-          }
-          if($row['transport']){
-            $transDa[11] = $transDa[11] + 1;
-          }
-          else{
-            $transNu[11] = $transNu[11] + 1;
-          }
         }
       }
     }
@@ -276,7 +145,7 @@ if(isset($_POST['an'])){
         </div>
         <div class="navbar-form navbar-center">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search...">
+            <input type="text" class="form-control" placeholder="Cauta">
             <span class="input-group-btn">
               <button class="btn btn-default" type="button"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
             </span>
@@ -319,6 +188,7 @@ if(isset($_POST['an'])){
         echo "<div style=\"margin-left:42%; font-size:25px; color:#332097;\">Niciun an selectat</div>";
       }
       else if(isset($_SESSION['isData'])){
+
         $aux = "<div class=\"chart\">
                   <div class=\"oneChart\">
                     <canvas class=\"myChart\" id=\"myChart1\"></canvas>
@@ -335,7 +205,8 @@ if(isset($_POST['an'])){
                   <div class=\"oneChart\">
                     <canvas class=\"myChart\" id=\"myChart5\"></canvas>
                   </div>
-                </div>";
+                </div>
+                ";
         echo $aux;
       }
       else{
@@ -365,34 +236,8 @@ if(isset($_POST['an'])){
                               'rgba(128, 128, 128, 0.2)',
                               'rgba(32, 32, 32, 0.2)'
                             ];
-    const backgroundColorNu = [
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)',
-                              'rgba(255, 0, 0, 0.2)'
-                            ];
-    const backgroundColorDa = [
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)',
-                              'rgba(0, 0, 255, 0.2)'
-                            ];
+    const backgroundColorNu = ['rgba(255, 0, 0, 0.2)'];
+    const backgroundColorDa = ['rgba(0, 0, 255, 0.2)'];
     const borderColor = [
                               'rgb(255, 0, 0)',
                               'rgb(255, 128, 0)',
@@ -407,34 +252,8 @@ if(isset($_POST['an'])){
                               'rgb(128, 128, 128)',
                               'rgb(32, 32, 32)'
                             ];
-    const borderColorNu = [
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)',
-                          'rgb(255, 0, 0)'
-                        ];
-    const borderColorDa = [
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)',
-                          'rgb(0, 0, 255)'
-                        ];
+    const borderColorNu = ['rgb(255, 0, 0)'];
+    const borderColorDa = ['rgb(0, 0, 255)'];
     const data1 = {
       labels: labels,
       datasets: [{
@@ -478,7 +297,7 @@ if(isset($_POST['an'])){
       },
     };
     const data3 = {
-      labels: labels,
+      labels: ['Montare'],
       datasets: [{
         label: 'Comenzi cu montare',
         data: <?php $montDa = $_SESSION['montDa']; echo $montDa;?>,
@@ -506,7 +325,7 @@ if(isset($_POST['an'])){
       },
     };
     const data4 = {
-      labels: labels,
+      labels: ['Transport'],
       datasets: [{
         label: 'Comenzi cu transport',
         data: <?php $transDa = $_SESSION['transDa']; echo $transDa;?>,
@@ -554,6 +373,10 @@ if(isset($_POST['an'])){
         }
       },
     };
+    var myChart5 = new Chart(
+      document.getElementById('myChart5'), 
+      config5
+    );
     var myChart1 = new Chart(
       document.getElementById('myChart1'), 
       config1

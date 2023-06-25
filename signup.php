@@ -15,8 +15,6 @@ if (isset($_POST['name']) && isset($_POST['email'])
     $name = validate($_POST['name']);  
     $email = validate($_POST['email']);
     $pass = validate($_POST['password']);
-
-    
     if (empty($name)) {
         header("Location: signup.php?error=Introduceti numele");
         exit();
@@ -49,18 +47,24 @@ if (isset($_POST['name']) && isset($_POST['email'])
     else{
         $pass = md5($pass);
 
-        $sql = "SELECT * FROM users WHERE email='$email' ";
+        $sql = "SELECT * FROM utilizatori WHERE email='$email' ";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             header("Location: signup.php?error=Email-ul este deja utilizat");
             exit();
         }else{
-            $sql2 = "INSERT INTO users(name, email, password) VALUES('$name', '$email', '$pass')";
+            $sql2 = "INSERT INTO utilizatori(nume, email, parola) VALUES('$name', '$email', '$pass')";
             $result2 = mysqli_query($conn, $sql2);
             if($result2){
                 unset($_SESSION['inume']);
                 unset($_SESSION['iemail']);
+                $sql2 = "SELECT * FROM utilizatori WHERE email='$email' ";
+                $result2 = mysqli_query($conn, $sql2);
+                $row=mysqli_fetch_assoc($result2);
+                $_SESSION['uname'] = $name;
+                $_SESSION['uemail'] = $email;
+                $_SESSION['uid'] = $row['id'];
                 header("Location: home.php");  
             }else{
                 header("Location: signup.php?error=A aparut o eroare neasteptata");

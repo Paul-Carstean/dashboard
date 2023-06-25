@@ -27,8 +27,9 @@ if(isset($_POST['editeaza'])){
 
 if(isset($_POST['final'])){
   $fid = $_POST['fid'];
+  $dataCurenta = date('Y-m-d');
   $conec=mysqli_connect("localhost", "root", "", "dashboard_db");
-  $sql="UPDATE comenzi SET comFinalizata=1 WHERE id='$fid'";;
+  $sql="UPDATE comenzi SET comFinalizata=1, dataLimita='$dataCurenta' WHERE id='$fid'";;
   $result=mysqli_query($conec,$sql);
   unset($_POST['final']);
 }
@@ -55,7 +56,7 @@ if(isset($_POST['final'])){
         </div>
         <div class="navbar-form navbar-center" style="position: fixed;">
           <div class="input-group" >
-            <input type="text" name="searchInput" class="form-control" placeholder="Search...">
+            <input type="text" name="searchInput" class="form-control" placeholder="Cauta comanda">
             <span class="input-group-btn">
               <button class="btn btn-default" name="searchButton"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
             </span>
@@ -72,7 +73,7 @@ if(isset($_POST['final'])){
             <li class="nav-li"><a class="nav-a" href="agenda.php"><i class="fa-solid fa-address-book"></i>  Agenda</a></li>
             <li class="nav-li"><a class="nav-a" href="statistici.php"><i class="fa-solid fa-chart-column"></i>  Statistici</a></li>
           </ul>
-            <li class="navli"><button type="submit" ><a href="logout.php"><i class="fas fa-sign-out-alt"></i>  Logout</a></button></li>
+            <li class="navli"><button type="submit" name="logout" ><a href="logout.php"><i class="fas fa-sign-out-alt"></i>  Logout</a></button></li>
           <ul>
           </ul>
           
@@ -91,7 +92,7 @@ if(isset($_POST['final'])){
       
 </form>
       <?php
-            $result=getDataComenzi(0);
+            $result=getDataComenzi(0, $_SESSION['uid']);
             $ok=0;
             if($result){
               while($row=mysqli_fetch_assoc($result)){
@@ -113,7 +114,8 @@ if(isset($_POST['final'])){
                   }
               }
             }
-            $result=getDataComenzi(1);
+            
+            $result=getDataComenzi(1, $_SESSION['uid']);
             if($result){
               while($row=mysqli_fetch_assoc($result)){
                   if(isset($_SESSION['search']))

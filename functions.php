@@ -175,13 +175,13 @@ function comandaFinalizata($id, $modelID, $montare, $tipMontare, $modelStalpi, $
                       </div>
                       <div class=\"butoane\">
 
-                      
+                          <input type=\"hidden\" name=\"fid\" value=\"$id\">
                           <button class=\"sterge\" name=\"sterge\">Sterge</button>
                           <text class=\"comFinalizata\">Comanda Finalizata</text>
                       </div>
                   </div>
               </div>
-              </from>";
+              </form>";
   }
   else{
     $element = "<form class=\"cform\" action=\"home.php\" method=\"post\">
@@ -212,6 +212,7 @@ function comandaFinalizata($id, $modelID, $montare, $tipMontare, $modelStalpi, $
                         <text><b>Pret: </b><text>$pret lei</text></text>
                       </div>
                       <div class=\"butoane\">
+                        <input type=\"hidden\" name=\"fid\" value=\"$id\">
                         <button class=\"sterge\" name=\"sterge\">Sterge</button>
                         <text class=\"comFinalizata\">Comanda Finalizata</text>
                       </div>
