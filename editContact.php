@@ -18,7 +18,6 @@ if(isset($_POST['addBtn'])){
     $img_size = $_FILES['imagine']['size'];
     $tmp_name = $_FILES['imagine']['tmp_name'];
     $error = $_FILES['imagine']['error'];
-
     $pattern = "/^07[0-9]{8}$/";
 
     if (empty($name) || empty($tel) || empty($email) || empty($functie)) {
